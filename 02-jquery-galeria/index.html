@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Galeria de Imagenes con jQuery - Curso de React </title>
+
+    <!--  **********  Importación jQuery  **********  -->
+    <script src="jquery-3.7.1.min.js"> </script>
+
+    <!--  **********  Estilos CSS  -->
+    <style>
+        .galeria {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 80%;
+        }
+
+        .galeria div {
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin: auto;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1 style="text-align: center;"> Galeria de Imagenes con jQuery - Curso de React </h1>
+
+
+    <!--  **********  Formulario  **********  -->
+    <div style="text-align: center; margin-bottom: 20px;">
+
+        <input type="text" id="imagenURL" placeholder="URL de la imagen">
+        <input type="text" id="pieFoto" placeholder="Pie de foto">
+        <button id="boton"> Agregar Imagen </button>
+    </div>
+
+
+    <!--  **********  Galeria  **********  -->
+    <div class="galeria" id="galeriaImagenes">
+
+        <div>
+            <img src="imgs/foto1.jpg" alt="Imagen 1" width="300" height="250">
+            <p> Pie de foto Imagen 1 </p>
+        </div>
+
+        <div>
+            <img src="imgs/foto2.jpg" alt="Imagen 2" width="300" height="250">
+            <p> Pie de foto Imagen 2 </p>
+        </div>
+
+        <div>
+            <img src="imgs/foto3.jpg" alt="Imagen 3" width="300" height="250">
+            <p> Pie de foto Imagen 3 </p>
+        </div>
+
+        <div>
+            <img src="imgs/foto4.jpg" alt="Imagen 4" width="300" height="250">
+            <p> Pie de foto Imagen 4 </p>
+        </div>
+
+    </div>
+
+
+    <!--  **********  Código jQuery  **********  -->
+    <script>
+
+        $(document).ready(function () {
+
+            console.log("Documento Cargado.");
+            //  Declaración de Variables.
+
+            $("#boton").on("click", function () {
+
+                //  Creación de variables.
+                let $galeria = $("#galeriaImagenes");
+                let $url = $("#imagenURL").val();
+                let $pie = $("#pieFoto").val();
+
+                if ($url && $pie) agregarGaleria($galeria, $url, $pie);
+                else alert("Hay que introducir Imagen y Pie");
+
+            });
+
+            //  Función que crea imagen y pie de foto.
+            function agregarGaleria($galeria, $url, $pie) {
+
+                // Crear un nuevo contenedor para la imagen y el pie de foto.
+                let $container = $('<div></div>', {
+                    class: $galeria
+                });
+                
+                // Crear un nuevo elemento de imagen
+                let $img = $('<img>', {
+                    src: $url,
+                    alt: $pie,
+                    width: '300px',
+                    height: '250px'
+                });
+                
+                // Crear un nuevo elemento de pie de foto
+                let $p = $('<p></p>').text($pie);
+                // Añadir la imagen y el pie de foto al contenedor
+                $container.append($img).append($p);
+                // Añadir el contenedor a la galería
+                $galeria.append($container);
+
+                //  Vaciamos los campos del formulario.
+                $("#imagenURL").val('');
+                $("#pieFoto").val('');
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
